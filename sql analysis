@@ -1,0 +1,52 @@
+CREATE TABLE employees (
+    emp_id      INT PRIMARY KEY,
+    name        VARCHAR(50) NOT NULL,
+    department  VARCHAR(30),
+    salary      DECIMAL(10,2),
+    hire_date   DATE,
+    city        VARCHAR(30)
+);
+
+INSERT INTO employees (emp_id, name, department, salary, hire_date, city) VALUES
+(1, 'Anita Nair',    'IT',        65000, '2020-03-15', 'Kochi'),
+(2, 'Rahul Menon',   'HR',        48000, '2019-07-01', 'Kottayam'),
+(3, 'Sneha Thomas',  'IT',        72000, '2018-11-20', 'Bengaluru'),
+(4, 'Arjun Das',     'Finance',   55000, '2021-01-10', 'Kochi'),
+(5, 'Meera Pillai',  'Finance',   61000, '2017-05-25', 'Chennai'),
+(6, 'Vishnu Raj',    'IT',        58000, '2022-09-05', 'Kottayam'),
+(7, 'Divya Menon',   'HR',        50000, '2020-12-12', 'Kochi'),
+(8, 'Joseph Mathew', 'Marketing', 53000, '2023-02-18', 'Bengaluru');
+
+1. All employees in the IT department
+
+
+SELECT * FROM employees WHERE department = 'IT';
+
+2. Employees earning more than 55,000, highest first
+
+SELECT name, salary
+FROM employees
+WHERE salary > 55000
+ORDER BY salary DESC;
+
+3. Employee count and average salary per department
+
+SELECT department,
+       COUNT(*)    AS total_employees,
+       AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;
+
+4. Employees hired on or after 1 January 2020
+
+
+SELECT name, hire_date
+FROM employees
+WHERE hire_date >= '2020-01-01';
+
+5. Employee with the highest salary (subquery)
+
+
+SELECT name, salary
+FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees);
